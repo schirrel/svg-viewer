@@ -1,0 +1,89 @@
+
+body {
+    margin: 0;
+    padding: 0;
+    background:#cff3ff
+}
+
+#viewer {
+display: grid;
+grid-template-columns: minmax(250px, 25%) auto;
+}
+
+
+* {
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+main svg:hover * {
+ opacity: .2;
+}
+main {
+    display: flex;
+    align-items: center;
+    
+    justify-content: center;
+}
+
+ul {
+    list-style: none;
+    padding-left:5px;
+}
+main svg *:hover,
+.hovered-item
+ {
+
+    opacity: 1;
+    stroke-width: .2px !important;
+    stroke: red !important;
+}
+li:hover,
+.hovered-text {
+    color:red
+}
+section {
+    display: none
+}
+
+#add-tab:checked ~ section#add-content,
+#viewer-tab:checked ~ section#viewer-content {
+    display: block;
+    width: 100%;
+float: right;
+}
+
+nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+input[type=radio] {
+  visibility: hidden;
+  position: absolute;
+}
+input + label {
+    display: inline-block;
+    float: left;
+    width: 50vw;
+    padding: 15px;
+    white-space: nowrap;
+    text-align: center;
+    background-color: #009fff;
+border: 2px solid #009fff;
+    border-radius: 0;
+}
+
+input:checked + label {
+
+    background-color: #cff3ff;
+    border: 2px solid 009fff;
+    border-left-color: #cff3ff;
+    border-right-color: #cff3ff;
+    border-bottom-color: #cff3ff
+}
+
+svg {
+    max-height: 100%
+}

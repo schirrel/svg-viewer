@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <input name="tabs" type="radio" id="add-tab" checked />
+    <label for="add-tab">Add SVG</label>
+
+    <input name="tabs" type="radio" id="viewer-tab" />
+    <label for="viewer-tab">Viewer</label>
+
+    <section id="add-content">
+
+        <fieldset>
+            <legend>Add SVG file</legend>
+            <input type="file" id="svgFile" name="svgFile" accept=".svg">
+        </fieldset>
+        <fieldset>
+            <legend>Add SVG Inline</legend>
+            <textarea name="svgInline" id="svgInline" cols="30" rows="10"></textarea>
+        </fieldset>
+
+    </section>
+    <section id="viewer-content">
+        <div id="viewer">
+            <aside>
+                <h3>Elements</h3>
+                <ul id="nodes"></ul>
+            </aside>
+            <main>
+            </main>
+        </div>
+    </section>
+</body>
+<script src="main.js" type="module"></script>
+
+</html>
