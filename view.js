@@ -1,46 +1,52 @@
 
 
 const uniqueId = () => '_' + Math.random().toString(36).substr(2, 9);
-
+const body = document.body;
 let svgNodes = [];
 let nodes = null;
-const mouseHover = function () {
-    document.querySelector(`[data-ref=${this.dataset.to}]`).classList.toggle('hovered-item');
-    this.classList.toggle('hovered-text');
+let liHover = function () {
+    let toElement = document.querySelector(`[data-ref=${this.dataset.to}]`);
+    toElement.classList.toggle('hovered-item');
+    body.classList.toggle("hovering")
 };
+let nodeHover = function () {
+    let refElement = document.querySelector(`[data-to=${this.dataset.ref}]`);
+    refElement.classList.toggle('hovered-text');
+};
+
 const createItem = (node, parent) => {
     let li = document.createElement('li');
+    if (!(node.dataset || node.getAttribute('ref'))) {
+        console.log('error')
+    }
     li.setAttribute('data-to', node.dataset.ref);
     li.innerText = `${node.tagName}  ${node.id ? "#" + node.id : ""}${node.classList.length ? '.' + [...node.classList].join('.') : ''}`;
-    li.onmouseover = function () {
-        document.querySelector(`[data-ref=${this.dataset.to}]`).classList.toggle('hovered-item');
-    };
-    li.onmouseout = li.onmouseover;
 
-    node.onmouseover = function () {
-        document.querySelector(`[data-to=${this.dataset.ref}]`).classList.toggle('hovered-text');
-    };
-    parent.onmouseout = node.onmouseover;
+    li.onmouseover = liHover;
+    li.onmouseout = liHover;
+
+    node.onmouseover = nodeHover;
+    node.onmouseout = nodeHover;
 
     nodes.appendChild(li);
 }
 
-const mountThree = (_nodes) => {
+const mountThree = (_nodes, parent) => {
     _nodes.forEach((node) => {
         if (node.tagName !== 'sodipodi:namedview') {
-            console.log(node)
+
             try {
-                node.setAttribute('data-ref', uniqueId());
-            } catch(e) {
-                node.innerText("problem")
-                console.log(node);
-                console.log(e);
+                if (node.tagName != 'g') {
+                    node.setAttribute('data-ref', uniqueId());
+                    createItem(node, nodes);
+                }
+
+            } catch (e) {
             }
-            createItem(node, _nodes);
             if (node.childNodes.length) {
                 let newUlFromLi = document.createElement('ul');
                 mountThree(node.childNodes, newUlFromLi);
-                nodes.appendChild(newUlFromLi);
+                parent.appendChild(newUlFromLi);
             }
 
         }
@@ -54,17 +60,16 @@ const listNodes = () => {
     nodes.innerHTML = null;
 
     mountThree(svgNodes, nodes)
-    svgNodes.forEach((node) => {
-        if (node.tagName !== 'sodipodi:namedview') {
-            node.setAttribute('data-ref', uniqueId());
-            createItem(node, nodes);
-        }
 
-    });
 
 }
 const view = (svg) => {
-    document.querySelector('main').innerHTML = svg;
+    const regex = /<[g]*>\s*<\/[g]*>/gs;
+    // The substituted value will be contained in the result variable
+    const result = svg.replace(regex, "");
+
+    document.querySelector('main').innerHTML = result;
+    console.log('Substitution result: ', result);
     setTimeout(listNodes, 300);
 }
 export default {

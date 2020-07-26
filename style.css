@@ -2,7 +2,8 @@
 body {
     margin: 0;
     padding: 0;
-    background:#cff3ff
+    background:#cff3ff;
+    font-family: 'Raleway', sans-serif;
 }
 
 #viewer {
@@ -16,7 +17,8 @@ grid-template-columns: minmax(250px, 25%) auto;
     cursor: pointer;
 }
 
-main svg:hover * {
+main svg:hover *,
+body.hovering svg *:not(g){
  opacity: .2;
 }
 main {
@@ -34,8 +36,8 @@ main svg *:hover,
 .hovered-item
  {
 
-    opacity: 1;
-    stroke-width: .2px !important;
+    opacity: 1 !important;
+    stroke-width: 1px !important;
     stroke: red !important;
 }
 li:hover,
@@ -66,24 +68,46 @@ input[type=radio] {
 input + label {
     display: inline-block;
     float: left;
-    width: 50vw;
+    width: calc(50vw - 4px);
     padding: 15px;
     white-space: nowrap;
     text-align: center;
     background-color: #009fff;
-border: 2px solid #009fff;
-    border-radius: 0;
+    border-radius: 4px;
+    margin: 15px 2px;
 }
 
 input:checked + label {
 
-    background-color: #cff3ff;
-    border: 2px solid 009fff;
-    border-left-color: #cff3ff;
-    border-right-color: #cff3ff;
-    border-bottom-color: #cff3ff
+    background-color: #009fcc;
 }
 
 svg {
-    max-height: 100%
+    max-height: 80vh
+}
+
+
+#viewer main {
+    margin-top: 5px;
+}
+
+textarea{
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid #009fcc;
+    padding: 15px;
+    box-shadow: 1px 1px 4px rgba(0,0,0,0.5)
+}
+
+fieldset {
+    border-radius: 8px;
+    border: 1px solid #009fcc;
+
+}
+
+footer {
+    position: fixed;
+    bottom: 5px;
+    width: 100%;
+    text-align: center;
 }
